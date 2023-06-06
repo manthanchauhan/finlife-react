@@ -11,3 +11,30 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.underline-on-hover{
+  text-decoration: none;
+}
+
+.underline-on-hover:hover{
+  text-decoration: underline;
+}
+
+.nav-btn{
+  color: white;
+}
+
+.nav-btn-outline{
+  color: white;
+  border-color: white;
+}
+
+.nav-btn:hover{
+  color: darkgrey;
+}
+
+.nav-btn-outline:hover{
+  color: darkgrey;
+  border-color: darkgrey;
+}
+

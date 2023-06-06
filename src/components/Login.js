@@ -1,5 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import NavbarContext from "../contexts/navbar/NavbarContext";
+import {Link} from "react-router-dom";
 
 const Login = () => {
     const context = useContext(NavbarContext);
@@ -17,9 +18,9 @@ const Login = () => {
 
     return (
         <div className={"container col-lg-4 mx-auto"} style={{marginTop: "150px"}}>
-            <h3 style={{textAlign: "center"}} className={"my-3"}>Log in to Finlife</h3>
+            <h3 style={{textAlign: "center"}} className={"my-3"}>Log in to <Link to={"/"} className={"underline-on-hover"}>Finlife</Link></h3>
             <div className="card" style={{backgroundColor: "#F6F8FA"}}>
-                <div style={{margin: "20px"}}>
+                <div style={{margin: "15px"}}>
                 <form>
                     <div className="mb-3">
                         <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
@@ -37,7 +38,9 @@ const Login = () => {
                     </div>
                 </form>
                 </div>
-
+            </div>
+            <div className={"card my-4"}>
+                <p style={{margin: "5px"}} className={"mx-auto"}>New user? <Link to={"/signup"} className={"underline-on-hover"}>Create account</Link>.</p>
             </div>
         </div>
     );

@@ -11,6 +11,10 @@ const Navbar = () => {
         navigate("/login")
     }
 
+    const onClickSignup = ()=>{
+        navigate("/signup")
+    }
+
     return (
         <>
         {showNav && <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
@@ -24,13 +28,20 @@ const Navbar = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                     <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                        <Link className="nav-link" aria-current="page" to="/">Home</Link>
                     </li>
                     <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/about">About</Link>
+                        <Link className="nav-link" aria-current="page" to="/about">About</Link>
                     </li>
                 </ul>
-                <button className="btn btn-primary" onClick={onClickLogin}>Login</button>
+                <ul className="navbar-nav">
+                    <li className="nav-item mx-2">
+                        <button className="btn nav-btn" onClick={onClickLogin}>Log in</button>
+                    </li>
+                    <li className="nav-item">
+                        <button className="btn btn-outline nav-btn-outline" onClick={onClickSignup}>Sign up</button>
+                    </li>
+                </ul>
             </div>
         </div>
     </nav>}
