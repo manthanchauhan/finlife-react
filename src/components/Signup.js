@@ -1,6 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import NavbarContext from "../contexts/navbar/NavbarContext";
 import {Link, useNavigate} from "react-router-dom";
+import {signupApi} from "../apis/signupApi";
 
 const Signup = () => {
     const context = useContext(NavbarContext);
@@ -26,8 +27,15 @@ const Signup = () => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log(state);
-        navigate("/login");
+
+        signupApi.signup(state)
+            .then((userInfo) => {
+                console.log(userInfo)
+                navigate("/login")
+            })
+            .catch((error) => {
+                alert(error.response.data.message)
+            })
     }
 
     return (
