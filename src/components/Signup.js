@@ -10,6 +10,9 @@ const Signup = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if (localStorage.getItem("authToken") !== null){
+            navigate("/");
+        }
         setShowNav(false);
     },);
 

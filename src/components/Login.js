@@ -8,6 +8,9 @@ const Login = () => {
     const {setShowNav} = context;
 
     useEffect(() => {
+        if (localStorage.getItem("authToken") !== null){
+            navigate("/");
+        }
         setShowNav(false);
     },);
 

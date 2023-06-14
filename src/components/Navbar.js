@@ -35,12 +35,12 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <ul className="navbar-nav">
-                    <li className="nav-item mx-2">
+                    {localStorage.getItem("authToken") == null && <li className="nav-item mx-2">
                         <button className="btn nav-btn" onClick={onClickLogin}>Log in</button>
-                    </li>
-                    <li className="nav-item">
+                    </li>}
+                    {localStorage.getItem("authToken") == null && <li className="nav-item">
                         <button className="btn btn-outline nav-btn-outline" onClick={onClickSignup}>Sign up</button>
-                    </li>
+                    </li>}
                 </ul>
             </div>
         </div>
