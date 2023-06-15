@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import React, {useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import NavbarContext from "../contexts/navbar/NavbarContext";
@@ -15,6 +16,11 @@ const Navbar = () => {
         navigate("/signup")
     }
 
+    const onClickLogout = () => {
+        localStorage.removeItem("authToken");
+        navigate("/login")
+    }
+
     return (
         <>
             {showNav && <nav className="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
@@ -28,19 +34,22 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/">Home</Link>
+                                <Link className={`nav-link ${location.pathname === "/"? "active": ""}`} aria-current="page" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/about">About</Link>
+                                <Link className={`nav-link ${location.pathname === "/about"? "active": ""}`} aria-current="page" to="/about">About</Link>
                             </li>
                         </ul>
                         <ul className="navbar-nav">
-                            {localStorage.getItem("authToken") == null && <li className="nav-item mx-2">
+                            {localStorage.getItem("authToken") === null && <li className="nav-item mx-2">
                                 <button className="btn nav-btn" onClick={onClickLogin}>Log in</button>
                             </li>}
-                            {localStorage.getItem("authToken") == null && <li className="nav-item">
+                            {localStorage.getItem("authToken") === null && <li className="nav-item">
                                 <button className="btn btn-outline nav-btn-outline" onClick={onClickSignup}>Sign up
                                 </button>
+                            </li>}
+                            {localStorage.getItem("authToken") !== null && <li className="nav-item mx-2">
+                                <button className="btn nav-btn" onClick={onClickLogout}>Log out</button>
                             </li>}
                         </ul>
                     </div>

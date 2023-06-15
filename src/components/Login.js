@@ -33,6 +33,7 @@ const Login = () => {
 
         authApi.login(state).then((data) => {
             localStorage.setItem("authToken", data.data.authToken);
+            localStorage.setItem("userProfile", JSON.stringify(data.data.user));
             navigate("/");
         }).catch((error) => {
             alert(error.response.data.message)
