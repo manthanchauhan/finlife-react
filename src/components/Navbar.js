@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import NavbarContext from "../contexts/navbar/NavbarContext";
 import {isLoggedIn} from "../utils";
@@ -9,6 +9,21 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 const Navbar = () => {
     const context = useContext(NavbarContext);
     const {showNav} = context;
+
+    const [width, setWidth] = useState(window.innerWidth);
+
+    useEffect(() => {
+        const updateWidth = () => {
+            setWidth(window.innerWidth);
+        }
+
+        window.addEventListener("resize", updateWidth);
+
+        return () => {
+            window.removeEventListener("resize", updateWidth);
+        };
+    }, [width]);
+
 
     const navigate = useNavigate();
     const onClickLogin = () => {
@@ -46,23 +61,29 @@ const Navbar = () => {
                             </li>
                         </ul>
                         <ul className="navbar-nav">
-                            {localStorage.getItem("authToken") === null && <li className="nav-item mx-2">
+                            {localStorage.getItem("authToken") === null && <li className="nav-item">
                                 <button className="btn nav-btn" onClick={onClickLogin}>Log in</button>
                             </li>}
                             {localStorage.getItem("authToken") === null && <li className="nav-item">
                                 <button className="btn btn-outline nav-btn-outline" onClick={onClickSignup}>Sign up
                                 </button>
                             </li>}
-                            {isLoggedIn() && <li className="nav-item mx-2">
+
+                            {isLoggedIn() && width > 992 && <li className="nav-item">
                                 <OverlayTrigger
                                     trigger="focus"
                                     placement="bottom"
-                                    overlay={AccountTooltip()}>
-                                    <button className="btn nav-btn">Account</button>
+                                    overlay={AccountTooltip({onClickLogout})}>
+                                    <Link className="nav-link active">Account</Link>
                                 </OverlayTrigger>
                             </li>}
-                            {localStorage.getItem("authToken") !== null && <li className="nav-item mx-2">
-                                <button className="btn nav-btn" onClick={onClickLogout}>Log out</button>
+
+                            {isLoggedIn() && width <= 992 && <li className="nav-item">
+                                <Link className="nav-link" to={"/"}>Account</Link>
+                            </li>}
+
+                            {isLoggedIn() && width <= 992 && <li className="nav-item">
+                                <Link className="nav-link" onClick={onClickLogout}>Log out</Link>
                             </li>}
                         </ul>
                     </div>

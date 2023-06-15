@@ -38,3 +38,16 @@ code {
   border-color: darkgrey;
 }
 
+.tooltip-inner {
+  max-width: var(--bs-tooltip-max-width);
+  padding: var(--bs-tooltip-padding-y) var(--bs-tooltip-padding-x);
+  color: var(--bs-tooltip-color);
+  text-align: center;
+  background-color: white;
+  border-radius: var(--bs-tooltip-border-radius);
+}
+
+.tooltip{
+  background-color: white;
+  --bs-tooltip-bg: white;
+}
