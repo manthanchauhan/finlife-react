@@ -15,17 +15,15 @@ function App() {
     return (
         <>
             <NavbarState>
-            <BrowserRouter>
-                <Navbar/>
-                <div className={"container"}>
+                <BrowserRouter>
+                    <Navbar/>
                     <Routes>
                         <Route path={"/"} element={<Home/>}/>
                         <Route path={"/about"} element={<About/>}/>
                         <Route path={"/login"} element={<Login/>}/>
                         <Route path={"/signup"} element={<Signup/>}/>
                     </Routes>
-                </div>
-            </BrowserRouter>
+                </BrowserRouter>
             </NavbarState>
         </>
     );
