@@ -2,6 +2,9 @@
 import React, {useContext} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import NavbarContext from "../contexts/navbar/NavbarContext";
+import {isLoggedIn} from "../utils";
+import AccountTooltip from "./AccountTooltip";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 const Navbar = () => {
     const context = useContext(NavbarContext);
@@ -34,10 +37,12 @@ const Navbar = () => {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "/"? "active": ""}`} aria-current="page" to="/">Home</Link>
+                                <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`}
+                                      aria-current="page" to="/">Home</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className={`nav-link ${location.pathname === "/about"? "active": ""}`} aria-current="page" to="/about">About</Link>
+                                <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`}
+                                      aria-current="page" to="/about">About</Link>
                             </li>
                         </ul>
                         <ul className="navbar-nav">
@@ -47,6 +52,14 @@ const Navbar = () => {
                             {localStorage.getItem("authToken") === null && <li className="nav-item">
                                 <button className="btn btn-outline nav-btn-outline" onClick={onClickSignup}>Sign up
                                 </button>
+                            </li>}
+                            {isLoggedIn() && <li className="nav-item mx-2">
+                                <OverlayTrigger
+                                    trigger="focus"
+                                    placement="bottom"
+                                    overlay={AccountTooltip()}>
+                                    <button className="btn nav-btn">Account</button>
+                                </OverlayTrigger>
                             </li>}
                             {localStorage.getItem("authToken") !== null && <li className="nav-item mx-2">
                                 <button className="btn nav-btn" onClick={onClickLogout}>Log out</button>

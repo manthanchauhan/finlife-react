@@ -4,6 +4,11 @@ const isLoggedIn = () => {
 
 const getLoggedInUserName = () => {
     const userProfile = JSON.parse(localStorage.getItem("userProfile"));
+
+    if (userProfile === null){
+        return "Stranger"
+    }
+
     const firstName = userProfile.firstName;
     const lastName = userProfile.lastName;
 
