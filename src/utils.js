@@ -1,5 +1,7 @@
+import {assetApi} from "./apis/assetApi";
+
 const isLoggedIn = () => {
-    return localStorage.getItem("authToken") !== null;
+    return getAuthToken() !== null;
 }
 
 const getLoggedInUserName = () => {
@@ -27,4 +29,37 @@ const getLoggedInUserName = () => {
     return name;
 }
 
-export {isLoggedIn, getLoggedInUserName};
+const getAuthToken = () => {
+    return localStorage.getItem("authToken")
+}
+
+const getAssetUUIDMap = () => {
+    let assetUUIDMap = JSON.parse(localStorage.getItem("assetUUIDMap"))
+
+    if (assetUUIDMap === null){
+        assetUUIDMap = createAssetUUIDMap()
+    }
+
+    return assetUUIDMap
+}
+
+const createAssetUUIDMap = () => {
+    let assetUUIDMap = {}
+
+    assetApi.list()
+        .then((response) => {
+            for (let asset of response.data.assets){
+                assetUUIDMap[asset.uuid] = asset.name
+            }
+
+            localStorage.setItem("assetUUIDMap", JSON.stringify(assetUUIDMap))
+        })
+        .catch((error) => {
+            alert(error.response.data.message)
+        })
+    ;
+
+    return assetUUIDMap;
+}
+
+export {isLoggedIn, getLoggedInUserName, getAuthToken, getAssetUUIDMap};
